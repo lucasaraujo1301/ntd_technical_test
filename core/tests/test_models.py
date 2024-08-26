@@ -119,7 +119,7 @@ class ModelTests(TestCase):
         :param self: Represent the instance of the class
         :return: A climates object
         """
-        climate = models.Climates.objects.create(name="climate")
+        climate = models.Climate.objects.create(name="climate")
 
         self.assertIsNotNone(climate)
         self.assertEqual(climate.name, "climate")
@@ -131,10 +131,10 @@ class ModelTests(TestCase):
         :param self: Represent the instance of the class
         :return: A climates object
         """
-        models.Climates.objects.create(name="climate")
+        models.Climate.objects.create(name="climate")
 
         with self.assertRaises(IntegrityError) as cm:
-            models.Climates.objects.create(name="climate")
+            models.Climate.objects.create(name="climate")
             self.assertEqual(cm.exception, "Climate with this name already exists.")
 
     def test_create_planets(self):
@@ -144,7 +144,7 @@ class ModelTests(TestCase):
         :param self: Represent the instance of the class
         :return: A planets object
         """
-        planet = models.Planets.objects.create(name="planet")
+        planet = models.Planet.objects.create(name="planet")
 
         self.assertIsNotNone(planet)
         self.assertEqual(planet.name, "planet")
@@ -156,10 +156,10 @@ class ModelTests(TestCase):
         :param self: Represent the instance of the class
         :return: A planet object
         """
-        models.Planets.objects.create(name="planet")
+        models.Planet.objects.create(name="planet")
 
         with self.assertRaises(IntegrityError) as cm:
-            models.Planets.objects.create(name="planet")
+            models.Planet.objects.create(name="planet")
             self.assertEqual(cm.exception, "Planet with this name already exists.")
 
     def test_create_planets_with_terrains(self):
@@ -170,7 +170,7 @@ class ModelTests(TestCase):
         :param self: Represent the instance of the class
         :return: A planets object
         """
-        planet = models.Planets.objects.create(name="planet")
+        planet = models.Planet.objects.create(name="planet")
         terrain = models.Terrain.objects.create(name="desert")
         planet.terrains.add(terrain)
 
@@ -186,8 +186,8 @@ class ModelTests(TestCase):
         :param self: Represent the instance of the class
         :return: A planets object
         """
-        planet = models.Planets.objects.create(name="planet")
-        climate = models.Climates.objects.create(name="climate")
+        planet = models.Planet.objects.create(name="planet")
+        climate = models.Climate.objects.create(name="climate")
         planet.climates.add(climate)
 
         self.assertIsNotNone(planet)

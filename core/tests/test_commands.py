@@ -79,8 +79,8 @@ class TestAddBasePlanetDataCommand(TestCase):
         call_command("add_base_planet_data")
 
         terrain = models.Terrain.objects.get(name="desert")
-        climate = models.Climates.objects.get(name="arid")
-        planet = models.Planets.objects.get(name="Tatooine")
+        climate = models.Climate.objects.get(name="arid")
+        planet = models.Planet.objects.get(name="Tatooine")
 
         self.assertIsNotNone(terrain)
         self.assertIsNotNone(climate)

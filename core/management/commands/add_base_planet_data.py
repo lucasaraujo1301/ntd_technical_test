@@ -32,11 +32,11 @@ class Command(BaseCommand):
     def get_planets_from_response(self, response) -> Union[dict, list]:
         return response.get("data", {}).get("allPlanets", {}).get("planets", [])
 
-    def create_planet_data(self, name: str, population: int = None) -> models.Planets:
+    def create_planet_data(self, name: str, population: int = None) -> models.Planet:
         """
         The create_planet_data function get or create the planet based on the graphql response.
         """
-        return models.Planets.objects.get_or_create(name=name, population=population)
+        return models.Planet.objects.get_or_create(name=name, population=population)
 
     def add_terrains_data(self, terrains: list) -> list[models.Terrain]:
         """
@@ -50,23 +50,23 @@ class Command(BaseCommand):
 
         return terrains_created
 
-    def add_climates_data(self, climates: list) -> list[models.Climates]:
+    def add_climates_data(self, climates: list) -> list[models.Climate]:
         """
         The add_climates_data function get or create the climates based on the graphql response.
         """
         climates_created = []
         for climate in climates:
             if climate != "unknown":
-                get, _ = models.Climates.objects.get_or_create(name=climate)
+                get, _ = models.Climate.objects.get_or_create(name=climate)
                 climates_created.append(get)
 
         return climates_created
 
     def add_climates_and_terrains_in_planets(
         self,
-        planet: models.Planets,
+        planet: models.Planet,
         terrains: list[models.Terrain],
-        climates: list[models.Climates],
+        climates: list[models.Climate],
     ):
         """
         The add_climates_and_terrains_in_planets function add terrain and climates in Planet instance

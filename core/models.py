@@ -60,13 +60,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Terrain(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.name
 
-class Climates(models.Model):
+
+class Climate(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.name
 
-class Planets(models.Model):
+
+class Planet(models.Model):
     name = models.CharField(max_length=255, unique=True)
     population = models.BigIntegerField(blank=True, null=True)
     terrains = models.ManyToManyField(Terrain, blank=True, related_name="planets")
-    climates = models.ManyToManyField(Climates, blank=True, related_name="planets")
+    climates = models.ManyToManyField(Climate, blank=True, related_name="planets")

@@ -42,4 +42,35 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
+class TerrainAdmin(admin.ModelAdmin):
+    ordering = ["id"]
+    list_display = ["name"]
+    search_fields = ["name"]
+
+
+class ClimateAdmin(admin.ModelAdmin):
+    ordering = ["id"]
+    list_display = ["name"]
+    search_fields = ["name"]
+
+
+class PlanetAdmin(admin.ModelAdmin):
+    ordering = ["id"]
+    list_display = ["name", "population"]
+    search_fields = ["name", "population"]
+    fieldsets = [
+        (None, {
+            'fields': [
+                'name',
+                "population",
+                "terrains",
+                "climates"
+            ],
+        }),
+    ]
+
+
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Climate, ClimateAdmin)
+admin.site.register(models.Terrain, TerrainAdmin)
+admin.site.register(models.Planet, PlanetAdmin)
