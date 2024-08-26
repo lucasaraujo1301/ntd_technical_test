@@ -63,3 +63,10 @@ class Terrain(models.Model):
 
 class Climates(models.Model):
     name = models.CharField(max_length=255, unique=True)
+
+
+class Planets(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    population = models.IntegerField(blank=True, null=True)
+    terrains = models.ManyToManyField(Terrain, blank=True, related_name="planets")
+    climates = models.ManyToManyField(Climates, blank=True, related_name="planets")

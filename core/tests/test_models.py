@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 from django.db import IntegrityError
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -95,27 +93,58 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_staff)
 
     def test_create_terrain(self):
-        terrain = models.Terrain.objects.create(name='desert')
+        terrain = models.Terrain.objects.create(name="desert")
 
         self.assertIsNotNone(terrain)
-        self.assertEqual(terrain.name, 'desert')
+        self.assertEqual(terrain.name, "desert")
 
     def test_create_terrain_repeated(self):
-        models.Terrain.objects.create(name='desert')
+        models.Terrain.objects.create(name="desert")
 
         with self.assertRaises(IntegrityError) as cm:
-            models.Terrain.objects.create(name='desert')
+            models.Terrain.objects.create(name="desert")
             self.assertEqual(cm.exception, "Terrain with this name already exists.")
 
     def test_create_climates(self):
-        climate = models.Climates.objects.create(name='climate')
+        climate = models.Climates.objects.create(name="climate")
 
         self.assertIsNotNone(climate)
-        self.assertEqual(climate.name, 'climate')
+        self.assertEqual(climate.name, "climate")
 
     def test_create_climates_repeated(self):
-        models.Climates.objects.create(name='climate')
+        models.Climates.objects.create(name="climate")
 
         with self.assertRaises(IntegrityError) as cm:
-            models.Climates.objects.create(name='climate')
+            models.Climates.objects.create(name="climate")
             self.assertEqual(cm.exception, "Climate with this name already exists.")
+
+    def test_create_planets(self):
+        planet = models.Planets.objects.create(name="planet")
+
+        self.assertIsNotNone(planet)
+        self.assertEqual(planet.name, "planet")
+
+    def test_create_planets_repeated(self):
+        models.Planets.objects.create(name="planet")
+
+        with self.assertRaises(IntegrityError) as cm:
+            models.Planets.objects.create(name="planet")
+            self.assertEqual(cm.exception, "Planet with this name already exists.")
+
+    def test_create_planets_with_terrains(self):
+        planet = models.Planets.objects.create(name="planet")
+        terrain = models.Terrain.objects.create(name="desert")
+        planet.terrains.add(terrain)
+
+        self.assertIsNotNone(planet)
+        self.assertEqual(planet.name, "planet")
+        self.assertIn(terrain, planet.terrains.all())
+
+    def test_create_planets_with_climates(self):
+        planet = models.Planets.objects.create(name="planet")
+        climate = models.Climates.objects.create(name="climate")
+        planet.climates.add(climate)
+
+        self.assertIsNotNone(planet)
+        self.assertEqual(planet.name, "planet")
+        self.assertIn(climate, planet.climates.all())
