@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.db import IntegrityError
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -92,3 +93,29 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_create_terrain(self):
+        terrain = models.Terrain.objects.create(name='desert')
+
+        self.assertIsNotNone(terrain)
+        self.assertEqual(terrain.name, 'desert')
+
+    def test_create_terrain_repeated(self):
+        models.Terrain.objects.create(name='desert')
+
+        with self.assertRaises(IntegrityError) as cm:
+            models.Terrain.objects.create(name='desert')
+            self.assertEqual(cm.exception, "Terrain with this name already exists.")
+
+    def test_create_climates(self):
+        climate = models.Climates.objects.create(name='climate')
+
+        self.assertIsNotNone(climate)
+        self.assertEqual(climate.name, 'climate')
+
+    def test_create_climates_repeated(self):
+        models.Climates.objects.create(name='climate')
+
+        with self.assertRaises(IntegrityError) as cm:
+            models.Climates.objects.create(name='climate')
+            self.assertEqual(cm.exception, "Climate with this name already exists.")

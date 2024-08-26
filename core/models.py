@@ -55,3 +55,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
+
+
+class Terrain(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+
+class Climates(models.Model):
+    name = models.CharField(max_length=255, unique=True)
