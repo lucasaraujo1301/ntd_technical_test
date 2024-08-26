@@ -64,12 +64,8 @@ class TestAddBasePlanetDataCommand(TestCase):
                         {
                             "name": "Tatooine",
                             "population": 200000,
-                            "terrains": [
-                                "desert"
-                            ],
-                            "climates": [
-                                "arid"
-                            ]
+                            "terrains": ["desert"],
+                            "climates": ["arid"],
                         },
                     ]
                 }

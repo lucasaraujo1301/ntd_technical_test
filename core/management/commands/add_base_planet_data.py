@@ -77,7 +77,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Entrypoint for command."""
-        self.stdout.write(f"Adding the base data from GraphQL API...")
+        self.stdout.write("Adding the base data from GraphQL API...")
 
         response = self.get_graphql_response()
 

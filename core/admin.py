@@ -59,14 +59,12 @@ class PlanetAdmin(admin.ModelAdmin):
     list_display = ["name", "population"]
     search_fields = ["name", "population"]
     fieldsets = [
-        (None, {
-            'fields': [
-                'name',
-                "population",
-                "terrains",
-                "climates"
-            ],
-        }),
+        (
+            None,
+            {
+                "fields": ["name", "population", "terrains", "climates"],
+            },
+        ),
     ]
 
 
