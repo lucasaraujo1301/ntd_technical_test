@@ -18,10 +18,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Flake8
-        run: docker-compose run --rm app sh -c "flake8"
+        run: docker compose run --rm app sh -c "flake8"
       - name: Black
-        run: docker-compose run --rm app sh -c "black ."
+        run: docker compose run --rm app sh -c "black ."
       - name: Start PostgreSQL Service
-        run: docker-compose up -d db
+        run: docker compose up -d db
       - name: Test
-        run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
+        run: docker compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
