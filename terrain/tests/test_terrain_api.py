@@ -5,12 +5,9 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 from core.models import Terrain
+from user.tests.test_user_api import create_user
 
 CREATE_GET_TERRAINS_URL = reverse("terrain:terrain-list")
-
-
-def create_user(**params):
-    return get_user_model().objects.create_user(**params)
 
 
 def create_terrain(**params):
@@ -52,7 +49,7 @@ class PrivateProductApiTests(TestCase):
         self.client_api.force_authenticate(user=self.user)
 
     def test_create_terrain_success(self):
-        data = {"name": "Tatooine"}
+        data = {"name": "deserts"}
 
         res = self.client_api.post(CREATE_GET_TERRAINS_URL, data=data)
 

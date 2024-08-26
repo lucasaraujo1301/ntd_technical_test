@@ -30,4 +30,5 @@ urlpatterns = [
     path("api/user/", include("user.urls")),
     path("api/terrains", include("terrain.urls")),
     path("api/climate", include("climate.urls")),
+    path("api/planet", include("planet.urls")),
 ]
