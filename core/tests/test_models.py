@@ -12,7 +12,6 @@ class ModelTests(TestCase):
 
         :param self: Represent the instance of the class
         :return: A user object
-        :doc-author: Trelent
         """
         email = "test@example.com"
         password = "testpass123"
@@ -32,7 +31,6 @@ class ModelTests(TestCase):
 
         :param self: Access the attributes and methods of the class in python
         :return: A list of tuples
-        :doc-author: Trelent
         """
         sample_emails = [
             ["test1@EXAMPLE.com", "test1@example.com"],
@@ -52,7 +50,6 @@ class ModelTests(TestCase):
 
         :param self: Represent the instance of the class
         :return: An error if the email is not provided
-        :doc-author: Trelent
         """
 
         with self.assertRaises(ValueError) as cm:
@@ -69,7 +66,6 @@ class ModelTests(TestCase):
 
         :param self: Access the instance of the class
         :return: An exception
-        :doc-author: Trelent
         """
         with self.assertRaises(TypeError) as cm:
             get_user_model().objects.create_user(123, "sample123")
@@ -85,7 +81,6 @@ class ModelTests(TestCase):
 
         :param self: Represent the instance of the class
         :return: A user object
-        :doc-author: Trelent
         """
         user = get_user_model().objects.create_superuser("test@example.com", "test123")
 
@@ -93,12 +88,24 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_staff)
 
     def test_create_terrain(self):
+        """
+        The test_create_terrain function is a test case that creating a new terrain successfully
+
+        :param self: Represent the instance of the class
+        :return: A terrain object
+        """
         terrain = models.Terrain.objects.create(name="desert")
 
         self.assertIsNotNone(terrain)
         self.assertEqual(terrain.name, "desert")
 
     def test_create_terrain_repeated(self):
+        """
+        The test_create_terrain function is a test case that creating a new terrain repeatedly fails
+
+        :param self: Represent the instance of the class
+        :return: A terrain object
+        """
         models.Terrain.objects.create(name="desert")
 
         with self.assertRaises(IntegrityError) as cm:
@@ -106,12 +113,24 @@ class ModelTests(TestCase):
             self.assertEqual(cm.exception, "Terrain with this name already exists.")
 
     def test_create_climates(self):
+        """
+        The test_create_climates function is a test case that creating a new climates successfully
+
+        :param self: Represent the instance of the class
+        :return: A climates object
+        """
         climate = models.Climates.objects.create(name="climate")
 
         self.assertIsNotNone(climate)
         self.assertEqual(climate.name, "climate")
 
     def test_create_climates_repeated(self):
+        """
+        The test_create_climates function is a test case that creating a new climates repeatedly fails
+
+        :param self: Represent the instance of the class
+        :return: A climates object
+        """
         models.Climates.objects.create(name="climate")
 
         with self.assertRaises(IntegrityError) as cm:
@@ -119,12 +138,24 @@ class ModelTests(TestCase):
             self.assertEqual(cm.exception, "Climate with this name already exists.")
 
     def test_create_planets(self):
+        """
+        The test_create_planets function is a test case that creating a new planets successfully
+
+        :param self: Represent the instance of the class
+        :return: A planets object
+        """
         planet = models.Planets.objects.create(name="planet")
 
         self.assertIsNotNone(planet)
         self.assertEqual(planet.name, "planet")
 
     def test_create_planets_repeated(self):
+        """
+        The test_create_planets function is a test case that creating a new planet repeatedly fails
+
+        :param self: Represent the instance of the class
+        :return: A planet object
+        """
         models.Planets.objects.create(name="planet")
 
         with self.assertRaises(IntegrityError) as cm:
@@ -132,6 +163,13 @@ class ModelTests(TestCase):
             self.assertEqual(cm.exception, "Planet with this name already exists.")
 
     def test_create_planets_with_terrains(self):
+        """
+        The test_create_planets_with_terrains function is a test case that creating a new planets with terrains
+         successfully
+
+        :param self: Represent the instance of the class
+        :return: A planets object
+        """
         planet = models.Planets.objects.create(name="planet")
         terrain = models.Terrain.objects.create(name="desert")
         planet.terrains.add(terrain)
@@ -141,6 +179,13 @@ class ModelTests(TestCase):
         self.assertIn(terrain, planet.terrains.all())
 
     def test_create_planets_with_climates(self):
+        """
+        The test_create_planets_with_climates function is a test case that creating a new planets with climates
+         successfully.
+
+        :param self: Represent the instance of the class
+        :return: A planets object
+        """
         planet = models.Planets.objects.create(name="planet")
         climate = models.Climates.objects.create(name="climate")
         planet.climates.add(climate)
